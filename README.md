@@ -1,2 +1,2 @@
-# CMPM170 Prototype 1 
+# CMPM170 Prototype 2 
  First prototype for the class
