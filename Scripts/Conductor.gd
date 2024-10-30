@@ -39,8 +39,8 @@ func _report_beat():
 
 func play_with_beat_offset(num):
 	beats_before_start = num
-	$StartTimer.wait_time = sec_per_beat
-	$StartTimer.start()
+	$Timer.wait_time = sec_per_beat
+	$Timer.start()
 	
 func closest_beat(nth):
 	closest = int(round((song_position / sec_per_beat) / nth) * nth)
@@ -53,14 +53,15 @@ func play_from_beat(beat, offset):
 	beats_before_start = offset
 	measure = beat % measures
 
-func _on_start_timer_timeout():
+func _on_timer_timeout() -> void:
+	print("timeout")
 	song_position_in_beats += 1
 	if song_position_in_beats < beats_before_start - 1:
-		$StartTimer.start()
+		$Timer.start()
 	elif song_position_in_beats == beats_before_start - 1:
-		$StartTimer.wait_time = $StartTimer.wait_time - (AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency())
-		$StartTimer.start()
+		$Timer.wait_time = $Timer.wait_time - (AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency())
+		$Timer.start()
 	else:
 		play()
-		$StartTimer.stop()
+		$Timer.stop()
 	_report_beat()

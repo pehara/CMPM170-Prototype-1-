@@ -9,12 +9,20 @@ var good = 0
 var okay = 0
 var missed = 0
 
+var bpm = 115
+
+var song_position = 0.0
+var song_position_in_beats = 0
+var last_spawned_beat = 0
+var sec_per_beat = 60.0 / bpm
+
+
 var beat = load("res://Scenes/Beat.tscn")
 var instance
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	$Conductor.play_with_beat_offset(0)
 
 func _input(event): 
 	if event.is_action_pressed("Spawn Beat"): 
@@ -26,6 +34,7 @@ func _input(event):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+	
 
 func increment_score(by):
 	if by > 0:
@@ -56,3 +65,24 @@ func _spawn_note():
 	instance = beat.instantiate()
 	instance.initialize()
 	add_child(instance)
+
+
+func _on_conductor_beat(pos: Variant) -> void:
+	song_position_in_beats = pos
+	_spawn_note()
+	
+	#if song_position_in_beats > 36:
+	if song_position_in_beats > 404:
+		#Global.set_score(score)
+		#Global.combo = max_combo
+		#Global.great = great
+		#Global.good = good
+		#Global.okay = okay
+		#Global.missed = missed
+		if get_tree().change_scene_to_file("res://Scenes/End.tscn") != OK:
+			print ("Error changing scene to End")
+
+
+func _on_conductor_measure(pos: Variant) -> void:
+	#_spawn_note()
+	print('e')

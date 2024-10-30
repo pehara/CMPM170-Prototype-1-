@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://digy0qs4xakpp"]
+
+[ext_resource type="AudioStream" uid="uid://djjt0gv2xito3" path="res://Assets/166467_rocket_race.mp3" id="1_0xn3i"]
+[ext_resource type="Script" path="res://Scripts/Conductor.gd" id="2_5scpk"]
+
+[node name="Conductor" type="AudioStreamPlayer"]
+stream = ExtResource("1_0xn3i")
+volume_db = -15.0
+script = ExtResource("2_5scpk")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

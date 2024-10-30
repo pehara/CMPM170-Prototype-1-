@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://cumumjpfdd7p4"]
+[gd_scene load_steps=12 format=3 uid="uid://cumumjpfdd7p4"]
 
 [ext_resource type="Script" path="res://Scripts/Scenario1.gd" id="1_2k0l1"]
 [ext_resource type="Script" path="res://Scripts/skeleton_2d.gd" id="1_dpwtk"]
 [ext_resource type="PackedScene" uid="uid://m3b80thdpvh0" path="res://Scenes/InputButton.tscn" id="2_c0w48"]
+[ext_resource type="PackedScene" uid="uid://digy0qs4xakpp" path="res://Scenes/Conductor.tscn" id="4_a0ns0"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_0xl86"]
 
@@ -231,4 +232,10 @@ scale = Vector2(0.945, 0.945)
 text = "Aura: 0"
 label_settings = SubResource("LabelSettings_goyog")
 
+[node name="Conductor" parent="." instance=ExtResource("4_a0ns0")]
+bpm = 115
+measures = 8
+
 [connection signal="animation_finished" from="Skeleton2D/AnimationPlayer" to="Skeleton2D" method="_on_animation_player_animation_finished"]
+[connection signal="Beat" from="Conductor" to="." method="_on_conductor_beat"]
+[connection signal="Measure" from="Conductor" to="." method="_on_conductor_measure"]
