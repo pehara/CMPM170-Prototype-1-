@@ -9,24 +9,29 @@ var good = 0
 var okay = 0
 var missed = 0
 
-var bpm = 115
+var bpm = 160
 
 var song_position = 0.0
 var song_position_in_beats = 0
 var last_spawned_beat = 0
 var sec_per_beat = 60.0 / bpm
 
+var spawn_1_beat = 1
+var spawn_2_beat = 1
+var spawn_3_beat = 1
+var spawn_4_beat = 0
 
 var beat = load("res://Scenes/Beat.tscn")
 var instance
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$Conductor.play_with_beat_offset(0)
+	randomize()
+	$Conductor.play_with_beat_offset(8)
 
 func _input(event): 
 	if event.is_action_pressed("Spawn Beat"): 
-		_spawn_note()
+		_spawn_note(1)
 	if event.is_action_pressed("Quit"):
 		if get_tree().change_scene_to_file("res://Scenes/AURAGAME.tscn") != 0:
 			print("Error Changing Scene To Menu")
@@ -35,6 +40,50 @@ func _input(event):
 func _process(delta: float) -> void:
 	pass
 	
+
+func _on_conductor_measure(pos):
+	if pos == 1:
+		_spawn_note(spawn_1_beat)
+	elif pos == 2:
+		_spawn_note(spawn_2_beat)
+	elif pos == 3:
+		_spawn_note(spawn_3_beat)
+	elif pos == 4:
+		_spawn_note(spawn_4_beat)
+		
+func _on_conductor_beat(pos: Variant) -> void:
+	song_position_in_beats = pos
+	
+	if song_position_in_beats > 36:
+		spawn_1_beat = 1
+		spawn_2_beat = 1
+		spawn_3_beat = 1
+		spawn_4_beat = 1
+	if song_position_in_beats > 98:
+		spawn_1_beat = 1
+		spawn_2_beat = 0
+		spawn_3_beat = 1
+		spawn_4_beat = 0
+	if song_position_in_beats > 132:
+		spawn_1_beat = 0
+		spawn_2_beat = 1
+		spawn_3_beat = 0
+		spawn_4_beat = 1
+	if song_position_in_beats > 404:
+		#Global.set_score(score)
+		#Global.combo = max_combo
+		#Global.great = great
+		#Global.good = good
+		#Global.okay = okay
+		#Global.missed = missed
+		if get_tree().change_scene_to_file("res://Scenes/End.tscn") != OK:
+			print ("Error changing scene to End")
+			
+func _spawn_note(to_spawn):
+	if to_spawn > 0:
+		instance = beat.instantiate()
+		instance.initialize()
+		add_child(instance)
 
 func increment_score(by):
 	if by > 0:
@@ -60,29 +109,3 @@ func increment_score(by):
 			#max_combo = combo
 	#else:
 		#$Combo.text = ""
-
-func _spawn_note():
-	instance = beat.instantiate()
-	instance.initialize()
-	add_child(instance)
-
-
-func _on_conductor_beat(pos: Variant) -> void:
-	song_position_in_beats = pos
-	_spawn_note()
-	
-	#if song_position_in_beats > 36:
-	if song_position_in_beats > 404:
-		#Global.set_score(score)
-		#Global.combo = max_combo
-		#Global.great = great
-		#Global.good = good
-		#Global.okay = okay
-		#Global.missed = missed
-		if get_tree().change_scene_to_file("res://Scenes/End.tscn") != OK:
-			print ("Error changing scene to End")
-
-
-func _on_conductor_measure(pos: Variant) -> void:
-	#_spawn_note()
-	print('e')
