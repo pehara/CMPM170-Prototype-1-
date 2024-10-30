@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdc6i7bjenxhv"]
+
+[ext_resource type="Script" path="res://Scripts/Auragame.gd" id="1_6dr46"]
+[ext_resource type="Texture2D" uid="uid://be4s8eqdnrb2u" path="res://Assets/IMG_2597.JPG" id="1_f6l8w"]
+
+[node name="rah" type="Node2D"]
+position = Vector2(546, 316)
+script = ExtResource("1_6dr46")
+
+[node name="Img2597" type="Sprite2D" parent="."]
+position = Vector2(37.375, 8.25)
+scale = Vector2(0.314616, 0.319092)
+texture = ExtResource("1_f6l8w")
+
+[node name="TextureButton" type="TextureButton" parent="Img2597"]
+offset_left = -757.67
+offset_top = -1019.3
+offset_right = 778.33
+offset_bottom = 1028.7
+texture_normal = ExtResource("1_f6l8w")
+
+[connection signal="button_down" from="Img2597/TextureButton" to="." method="_on_texture_button_button_down"]

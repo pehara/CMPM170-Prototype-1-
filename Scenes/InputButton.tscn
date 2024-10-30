@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://m3b80thdpvh0"]
+
+[ext_resource type="Script" path="res://Scripts/InputButton.gd" id="1_10yua"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ngm6k"]
+size = Vector2(100, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7as1n"]
+size = Vector2(8, 54)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5p8ir"]
+size = Vector2(56, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1kavn"]
+size = Vector2(120, 100)
+
+[node name="InputButton" type="Sprite2D"]
+texture = SubResource("PlaceholderTexture2D_ngm6k")
+script = ExtResource("1_10yua")
+
+[node name="PoggersHitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PoggersHitbox"]
+shape = SubResource("RectangleShape2D_7as1n")
+
+[node name="GoodHitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoodHitbox"]
+shape = SubResource("RectangleShape2D_5p8ir")
+
+[node name="MidHitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MidHitbox"]
+shape = SubResource("RectangleShape2D_1kavn")
+
+[node name="Node" type="Node" parent="."]
+
+[connection signal="area_entered" from="PoggersHitbox" to="." method="_on_poggers_hitbox_area_entered"]
+[connection signal="area_exited" from="PoggersHitbox" to="." method="_on_poggers_hitbox_area_exited"]
+[connection signal="area_entered" from="GoodHitbox" to="." method="_on_good_hitbox_area_entered"]
+[connection signal="area_exited" from="GoodHitbox" to="." method="_on_good_hitbox_area_exited"]
+[connection signal="area_entered" from="MidHitbox" to="." method="_on_mid_hitbox_area_entered"]
+[connection signal="area_exited" from="MidHitbox" to="." method="_on_mid_hitbox_area_exited"]
