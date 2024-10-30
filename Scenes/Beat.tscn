@@ -15,7 +15,6 @@ script = ExtResource("1_ox35o")
 texture = SubResource("PlaceholderTexture2D_tds0x")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_0yhfn")
 
 [node name="Node2D" type="Node2D" parent="."]
