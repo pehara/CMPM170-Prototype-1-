@@ -28,6 +28,10 @@ var instance
 func _ready() -> void:
 	randomize()
 	$Conductor.play_with_beat_offset(8)
+	var progress_bar = $ProgressBar 
+	progress_bar.min_value = 0 
+	progress_bar.max_value = 5000 
+	progress_bar.value = 0 
 
 func _input(event): 
 	if event.is_action_pressed("Spawn Beat"): 
@@ -103,6 +107,10 @@ func increment_score(by):
 	
 	score += by * combo
 	$Aura.text = "Aura: " + str(score)
+	var progress_bar = $ProgressBar
+	progress_bar.value += by * combo
+	if progress_bar.value >= progress_bar.max_value: 
+		progress_bar.value = 0
 	#if combo > 0:
 		#$Combo.text = str(combo) + " combo!"
 		#if combo > max_combo:
