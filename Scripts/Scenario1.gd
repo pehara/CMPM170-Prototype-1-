@@ -17,20 +17,24 @@ var last_spawned_beat = 0
 var sec_per_beat = 60.0 / bpm
 
 var spawn_1_beat = 1
-var spawn_2_beat = 1
-var spawn_3_beat = 1
+var spawn_2_beat = 0
+var spawn_3_beat = 0
 var spawn_4_beat = 0
 
+var rand = 0
 var beat = load("res://Scenes/Beat.tscn")
 var instance
 
+@onready var player_anim= $CharacterBody2D/AnimatedSprite2D
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	player_anim.play("walk")
 	randomize()
-	$Conductor.play_with_beat_offset(8)
+	$Conductor.play_with_beat_offset(0)
 	var progress_bar = $ProgressBar 
 	progress_bar.min_value = 0 
-	progress_bar.max_value = 5000 
+	progress_bar.max_value = 1000
 	progress_bar.value = 0 
 
 func _input(event): 
@@ -60,18 +64,18 @@ func _on_conductor_beat(pos: Variant) -> void:
 	
 	if song_position_in_beats > 36:
 		spawn_1_beat = 1
-		spawn_2_beat = 1
-		spawn_3_beat = 1
-		spawn_4_beat = 1
-	if song_position_in_beats > 98:
-		spawn_1_beat = 1
 		spawn_2_beat = 0
 		spawn_3_beat = 1
 		spawn_4_beat = 0
-	if song_position_in_beats > 132:
-		spawn_1_beat = 0
+	if song_position_in_beats > 98:
+		spawn_1_beat = 1
 		spawn_2_beat = 1
-		spawn_3_beat = 0
+		spawn_3_beat = 1
+		spawn_4_beat = 0
+	if song_position_in_beats > 132:
+		spawn_1_beat = 1
+		spawn_2_beat = 1
+		spawn_3_beat = 1
 		spawn_4_beat = 1
 	if song_position_in_beats > 404:
 		#Global.set_score(score)

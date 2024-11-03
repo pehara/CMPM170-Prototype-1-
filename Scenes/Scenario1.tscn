@@ -271,7 +271,7 @@ text = "Aura: 0"
 label_settings = SubResource("LabelSettings_goyog")
 
 [node name="Conductor" parent="." instance=ExtResource("4_a0ns0")]
-bpm = 115
+bpm = 160
 measures = 8
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
@@ -364,6 +364,8 @@ position = Vector2(580.5, 323)
 scale = Vector2(0.617188, 0.625926)
 sprite_frames = SubResource("SpriteFrames_3njrc")
 animation = &"walk"
+frame = 1
+frame_progress = 0.541761
 
 [connection signal="animation_finished" from="Skeleton2D/AnimationPlayer" to="Skeleton2D" method="_on_animation_player_animation_finished"]
 [connection signal="Beat" from="Conductor" to="." method="_on_conductor_beat"]
