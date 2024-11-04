@@ -19,12 +19,13 @@ func _physics_process(delta):
 	if !hit:
 		position.x += speed * delta
 		if position.x < 0:
-			var progress_bar = get_parent().get_node("ProgressBar")
-			progress_bar.value -= 500 
-			if progress_bar.value < 0: 
-				progress_bar.value = 0
+			#var progress_bar = get_parent().get_node("ProgressBar")
+			#progress_bar.value -= 500 
+			#if progress_bar.value < 0: 
+				#progress_bar.value = 0
+			get_parent().change_progress_bar(-500)
 			queue_free()
-			#get_parent().reset_combo()
+			get_parent().reset_combo()
 	else:
 		$Node2D.position.y += speed * delta
 

@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://drvlj5746oxjm"]
+
+[node name="BadEnd" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 471.0
+offset_top = 293.0
+offset_right = 662.0
+offset_bottom = 348.0
+theme_override_font_sizes/font_size = 40
+text = "Bad End..."

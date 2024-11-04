@@ -26,16 +26,20 @@ var beat = load("res://Scenes/Beat.tscn")
 var instance
 
 @onready var player_anim= $CharacterBody2D/AnimatedSprite2D
+@onready var progress_bar = $ProgressBar
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	player_anim.play("walk")
+	
 	randomize()
 	$Conductor.play_with_beat_offset(0)
-	var progress_bar = $ProgressBar 
+	
+	#var progress_bar = $ProgressBar 
 	progress_bar.min_value = 0 
-	progress_bar.max_value = 1000
+	progress_bar.max_value = 10000
 	progress_bar.value = 0 
+	#change_progress_bar(10000)
 
 func _input(event): 
 	if event.is_action_pressed("Spawn Beat"): 
@@ -48,7 +52,6 @@ func _input(event):
 func _process(delta: float) -> void:
 	pass
 	
-
 func _on_conductor_measure(pos):
 	if pos == 1:
 		_spawn_note(spawn_1_beat)
@@ -77,15 +80,13 @@ func _on_conductor_beat(pos: Variant) -> void:
 		spawn_2_beat = 1
 		spawn_3_beat = 1
 		spawn_4_beat = 1
-	if song_position_in_beats > 404:
-		#Global.set_score(score)
-		#Global.combo = max_combo
-		#Global.great = great
-		#Global.good = good
-		#Global.okay = okay
-		#Global.missed = missed
-		if get_tree().change_scene_to_file("res://Scenes/End.tscn") != OK:
-			print ("Error changing scene to End")
+	if song_position_in_beats > 200:
+		if progress_bar.value > 9999:
+			if get_tree().change_scene_to_file("res://Scenes/GoodEnd.tscn") != OK:
+				print ("Error changing scene to End")
+		else: 
+			if get_tree().change_scene_to_file("res://Scenes/BadEnd.tscn") != OK:
+				print ("Error changing scene to End")
 			
 func _spawn_note(to_spawn):
 	if to_spawn > 0:
@@ -108,16 +109,14 @@ func increment_score(by):
 	else:
 		missed += 1
 	
-	
 	score += by * combo
-	$Aura.text = "Aura: " + str(score)
-	var progress_bar = $ProgressBar
-	progress_bar.value += by * combo
-	if progress_bar.value >= progress_bar.max_value: 
+	change_progress_bar(score)
+
+func reset_combo():
+	combo = 0
+	
+func change_progress_bar(amount):
+	progress_bar.value += amount
+	if progress_bar.value > progress_bar.max_value or progress_bar.value < 0:
 		progress_bar.value = 0
-	#if combo > 0:
-		#$Combo.text = str(combo) + " combo!"
-		#if combo > max_combo:
-			#max_combo = combo
-	#else:
-		#$Combo.text = ""
+	$Aura.text = "Aura: " + str(progress_bar.value)
