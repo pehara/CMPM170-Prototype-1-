@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cumumjpfdd7p4"]
+[gd_scene load_steps=26 format=3 uid="uid://cumumjpfdd7p4"]
 
 [ext_resource type="Script" path="res://Scripts/Scenario1.gd" id="1_2k0l1"]
 [ext_resource type="Script" path="res://Scripts/skeleton_2d.gd" id="1_dpwtk"]
@@ -14,6 +14,9 @@
 [ext_resource type="Texture2D" uid="uid://dervlosr6104u" path="res://Assets/Character Stuff/cf3.png" id="12_6ig0s"]
 [ext_resource type="Texture2D" uid="uid://dpi5wml8ygq02" path="res://Assets/Character Stuff/cf4.png" id="13_8phlt"]
 [ext_resource type="Texture2D" uid="uid://ceoyvbqwt5aa4" path="res://Assets/Character Stuff/cf5.png" id="14_tn5w7"]
+[ext_resource type="Texture2D" uid="uid://hjgifaxciepg" path="res://Assets/Character Stuff/note_pog.png" id="15_8h7yx"]
+[ext_resource type="Texture2D" uid="uid://b15j0n4m4oddp" path="res://Assets/Character Stuff/note_good_mid.png" id="16_cfegn"]
+[ext_resource type="Texture2D" uid="uid://nco2wk5lca0k" path="res://Assets/Character Stuff/note_miss.png" id="17_0intt"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_0xl86"]
 
@@ -366,6 +369,24 @@ sprite_frames = SubResource("SpriteFrames_3njrc")
 animation = &"walk"
 frame = 1
 frame_progress = 0.541761
+
+[node name="PlayerPog" type="Sprite2D" parent="CharacterBody2D"]
+visible = false
+position = Vector2(580.5, 323)
+scale = Vector2(0.617, 0.626)
+texture = ExtResource("15_8h7yx")
+
+[node name="PlayerGoodMid" type="Sprite2D" parent="CharacterBody2D"]
+visible = false
+position = Vector2(580.5, 323)
+scale = Vector2(0.617, 0.626)
+texture = ExtResource("16_cfegn")
+
+[node name="PlayerMiss" type="Sprite2D" parent="CharacterBody2D"]
+visible = false
+position = Vector2(580.5, 323)
+scale = Vector2(0.617, 0.626)
+texture = ExtResource("17_0intt")
 
 [connection signal="animation_finished" from="Skeleton2D/AnimationPlayer" to="Skeleton2D" method="_on_animation_player_animation_finished"]
 [connection signal="Beat" from="Conductor" to="." method="_on_conductor_beat"]

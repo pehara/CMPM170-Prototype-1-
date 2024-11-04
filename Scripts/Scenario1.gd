@@ -25,7 +25,11 @@ var rand = 0
 var beat = load("res://Scenes/Beat.tscn")
 var instance
 
-@onready var player_anim= $CharacterBody2D/AnimatedSprite2D
+@onready var player_anim = $CharacterBody2D/AnimatedSprite2D
+@onready var player_pog = $CharacterBody2D/PlayerPog
+@onready var player_good_mid = $CharacterBody2D/PlayerGoodMid
+@onready var player_miss = $CharacterBody2D/PlayerMiss
+
 @onready var progress_bar = $ProgressBar
 
 # Called when the node enters the scene tree for the first time.
@@ -38,8 +42,8 @@ func _ready() -> void:
 	#var progress_bar = $ProgressBar 
 	progress_bar.min_value = 0 
 	progress_bar.max_value = 10000
-	progress_bar.value = 0 
-	#change_progress_bar(10000)
+	#progress_bar.value = 0 
+	change_progress_bar(10000)
 
 func _input(event): 
 	if event.is_action_pressed("Spawn Beat"): 
@@ -108,9 +112,11 @@ func increment_score(by):
 		okay += 1
 	else:
 		missed += 1
+		
+	player_animation_control(by)
 	
 	score += by * combo
-	change_progress_bar(score)
+	#change_progress_bar(score)
 
 func reset_combo():
 	combo = 0
@@ -120,3 +126,23 @@ func change_progress_bar(amount):
 	if progress_bar.value > progress_bar.max_value or progress_bar.value < 0:
 		progress_bar.value = 0
 	$Aura.text = "Aura: " + str(progress_bar.value)
+	
+func player_animation_control(version):
+	if version == 3:
+		player_anim.visible = false
+		player_pog.visible = true
+		await get_tree().create_timer(0.5).timeout
+		player_pog.visible = false
+		player_anim.visible = true
+	elif version == 2 or version == 1:
+		player_anim.visible = false
+		player_good_mid.visible = true
+		await get_tree().create_timer(0.5).timeout
+		player_good_mid.visible = false
+		player_anim.visible = true
+	else:
+		player_anim.visible = false
+		player_miss.visible = true
+		await get_tree().create_timer(0.5).timeout
+		player_miss.visible = false
+		player_anim.visible = true

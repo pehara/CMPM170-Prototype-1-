@@ -24,6 +24,7 @@ func _physics_process(delta):
 			#if progress_bar.value < 0: 
 				#progress_bar.value = 0
 			get_parent().change_progress_bar(-500)
+			get_parent().player_animation_control(0)
 			queue_free()
 			get_parent().reset_combo()
 	else:
