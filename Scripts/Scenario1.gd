@@ -128,21 +128,22 @@ func change_progress_bar(amount):
 	$Aura.text = "Aura: " + str(progress_bar.value)
 	
 func player_animation_control(version):
+	var anim_time = 0.3
 	if version == 3:
 		player_anim.visible = false
 		player_pog.visible = true
-		await get_tree().create_timer(0.5).timeout
+		await get_tree().create_timer(anim_time).timeout
 		player_pog.visible = false
 		player_anim.visible = true
 	elif version == 2 or version == 1:
 		player_anim.visible = false
 		player_good_mid.visible = true
-		await get_tree().create_timer(0.5).timeout
+		await get_tree().create_timer(anim_time).timeout
 		player_good_mid.visible = false
 		player_anim.visible = true
 	else:
 		player_anim.visible = false
 		player_miss.visible = true
-		await get_tree().create_timer(0.5).timeout
+		await get_tree().create_timer(anim_time).timeout
 		player_miss.visible = false
 		player_anim.visible = true
